@@ -1,0 +1,41 @@
+# Definition for singly-linked list.
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution(object):
+    def mergeTwoLists(self, list1, list2):
+        """
+        :type list1: Optional[ListNode]
+        :type list2: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        """
+        # Create a dummy node to simplify the merging process.
+        # This node will serve as the starting point of our merged list.
+        prehead = ListNode(-1)
+        
+        # 'current' will be used to traverse and build the new merged list.
+        current = prehead
+        
+        # Iterate while both lists have nodes to compare.
+        while list1 and list2:
+            if list1.val <= list2.val:
+                # If list1's current node value is smaller or equal,
+                # append it to the merged list.
+                current.next = list1
+                list1 = list1.next # Move to the next node in list1.
+            else:
+                # Otherwise, append list2's current node.
+                current.next = list2
+                list2 = list2.next # Move to the next node in list2.
+            
+            # Move the 'current' pointer forward in the merged list.
+            current = current.next
+            
+        # If one list is exhausted, append the remaining nodes of the other list.
+        # Since both are sorted, the remaining portion is already sorted.
+        current.next = list1 if list1 is not None else list2
+        
+        # Return the next node of the prehead, which is the actual head of the merged list.
+        return prehead.next
