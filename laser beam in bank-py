@@ -1,0 +1,17 @@
+class Solution(object):
+    def numberOfBeams(self, bank):
+        """
+        :type bank: List[str]
+        :rtype: int
+        """
+        prev_laser_count = 0
+        total_beams = 0
+
+        for row in bank:
+            current_laser_count = row.count('1')
+
+            if current_laser_count > 0:
+                total_beams += prev_laser_count * current_laser_count
+                prev_laser_count = current_laser_count
+
+        return total_beams
